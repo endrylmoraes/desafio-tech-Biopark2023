@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id            String    @id @default(uuid())
+  nome          String
+  email         String
+  senha         String
+  criado_em     DateTime? @default(now())
+  atualizado_em DateTime? @default(now())
+
+  @@map("usuarios")
+}
+
+model Edificio {
+  id            String    @id @default(uuid())
+  numero        Int
+  criado_em     DateTime? @default(now())
+  atualizado_em DateTime? @default(now())
+
+  apartamentos Apartamento[]
+
+  @@map("edificios")
+}
+
+model Apartamento {
+  id            String    @id @default(uuid())
+  andar         Int
+  numero        Int
+  fl_disponivel Boolean
+  valor         String
+  criado_em     DateTime? @default(now())
+  atualizado_em DateTime? @default(now())
+
+  edificio    Edificio @relation(fields: [id_edificio], references: [id])
+  id_edificio String
+
+  Contrato Contrato[]
+
+  @@map("apartamentos")
+}
+
+model Inquilino {
+  id            String    @id @default(uuid())
+  nome          String
+  idade         Int
+  email         String
+  cpf           String
+  criado_em     DateTime? @default(now())
+  atualizado_em DateTime? @default(now())
+
+  contratos Contrato[]
+
+  @@map("inquilinos")
+}
+
+model Locatario {
+  id            String    @id @default(uuid())
+  nome          String
+  criado_em     DateTime? @default(now())
+  atualizado_em DateTime? @default(now())
+
+  contratos Contrato[]
+
+  @@map("locatarios")
+}
+
+model Contrato {
+  id            String    @id @default(uuid())
+  data_inicio   DateTime
+  data_fim      DateTime
+  criado_em     DateTime? @default(now())
+  atualizado_em DateTime? @default(now())
+
+  locatario   Locatario   @relation(fields: [id_locatario], references: [id])
+  inquilino   Inquilino   @relation(fields: [id_inquilino], references: [id])
+  apartamento Apartamento @relation(fields: [id_apartamento], references: [id])
+
+  id_locatario   String
+  id_inquilino   String
+  id_apartamento String
+
+  @@map("contratos")
+}
