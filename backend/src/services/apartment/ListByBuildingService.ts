@@ -6,8 +6,6 @@ interface ProductRequest{
 
 class ListByBuildingService{
     async execute({ id_building }: ProductRequest){
-        console.log(id_building);
-        
         const findByBuilding = await prismaClient.apartment.findMany({
           where:{
             id_building: id_building

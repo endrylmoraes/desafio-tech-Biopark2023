@@ -24,6 +24,10 @@ import { CreateApartmentController } from "./controllers/apartment/CreateApartme
 import { ListAllApartmentsController } from "./controllers/apartment/ListAllApartmentsController";
 import { ListByBuildingController } from "./controllers/apartment/ListByBuildingController";
 
+// Rent
+import { CreateRentController } from "./controllers/rent/CreateRentController";
+
+
 const router = Router();
 
 // -- Routes User --
@@ -46,5 +50,8 @@ router.get("/locators", isAuthenticated, new ListAllLocatorsController().handle)
 router.post("/apartment", isAuthenticated, new CreateApartmentController().handle)
 router.get("/apartments", isAuthenticated, new ListAllApartmentsController().handle);
 router.get("/building/apartments", isAuthenticated, new ListByBuildingController().handle);
+
+// -- Routes Rent --
+router.post("/rent", isAuthenticated, new CreateRentController().handle)
 
 export { router };
