@@ -1,44 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `apartamentos` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `contratos` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `edificios` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `inquilinos` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `locatarios` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `usuarios` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "apartamentos" DROP CONSTRAINT "apartamentos_id_edificio_fkey";
-
--- DropForeignKey
-ALTER TABLE "contratos" DROP CONSTRAINT "contratos_id_apartamento_fkey";
-
--- DropForeignKey
-ALTER TABLE "contratos" DROP CONSTRAINT "contratos_id_inquilino_fkey";
-
--- DropForeignKey
-ALTER TABLE "contratos" DROP CONSTRAINT "contratos_id_locatario_fkey";
-
--- DropTable
-DROP TABLE "apartamentos";
-
--- DropTable
-DROP TABLE "contratos";
-
--- DropTable
-DROP TABLE "edificios";
-
--- DropTable
-DROP TABLE "inquilinos";
-
--- DropTable
-DROP TABLE "locatarios";
-
--- DropTable
-DROP TABLE "usuarios";
-
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -66,7 +25,7 @@ CREATE TABLE "apartments" (
     "id" TEXT NOT NULL,
     "floor" INTEGER NOT NULL,
     "number" INTEGER NOT NULL,
-    "available" BOOLEAN NOT NULL,
+    "available" BOOLEAN NOT NULL DEFAULT true,
     "value" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,

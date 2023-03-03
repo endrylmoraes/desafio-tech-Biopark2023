@@ -21,7 +21,7 @@ class CreateTenantService{
     })
 
     if(tenantAlreadyExists){
-        throw new Error("Já possui inquilino cadastrado com este CPF!");
+        throw new Error("Já possui locatário cadastrado com este CPF!");
     }
 
     const tenant = await prismaClient.tenant.create({
