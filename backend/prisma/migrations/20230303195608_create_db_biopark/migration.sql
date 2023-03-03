@@ -58,7 +58,7 @@ CREATE TABLE "locators" (
 );
 
 -- CreateTable
-CREATE TABLE "contracts" (
+CREATE TABLE "rents" (
     "id" TEXT NOT NULL,
     "dt_start" TIMESTAMP(3) NOT NULL,
     "dt_end" TIMESTAMP(3) NOT NULL,
@@ -68,17 +68,17 @@ CREATE TABLE "contracts" (
     "id_tenant" TEXT NOT NULL,
     "id_apartment" TEXT NOT NULL,
 
-    CONSTRAINT "contracts_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "rents_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
 ALTER TABLE "apartments" ADD CONSTRAINT "apartments_id_building_fkey" FOREIGN KEY ("id_building") REFERENCES "buildings"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contracts" ADD CONSTRAINT "contracts_id_locator_fkey" FOREIGN KEY ("id_locator") REFERENCES "locators"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "rents" ADD CONSTRAINT "rents_id_locator_fkey" FOREIGN KEY ("id_locator") REFERENCES "locators"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contracts" ADD CONSTRAINT "contracts_id_tenant_fkey" FOREIGN KEY ("id_tenant") REFERENCES "tenants"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "rents" ADD CONSTRAINT "rents_id_tenant_fkey" FOREIGN KEY ("id_tenant") REFERENCES "tenants"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "contracts" ADD CONSTRAINT "contracts_id_apartment_fkey" FOREIGN KEY ("id_apartment") REFERENCES "apartments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "rents" ADD CONSTRAINT "rents_id_apartment_fkey" FOREIGN KEY ("id_apartment") REFERENCES "apartments"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

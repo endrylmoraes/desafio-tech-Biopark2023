@@ -41,7 +41,7 @@ model Apartment {
   building    Building @relation(fields: [id_building], references: [id])
   id_building String
 
-  Contract Contract[]
+  Rent Rent[]
 
   @@map("apartments")
 }
@@ -55,7 +55,7 @@ model Tenant {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  contracts Contract[]
+  rents Rent[]
 
   @@map("tenants")
 }
@@ -66,12 +66,12 @@ model Locator {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  contracts Contract[]
+  rents Rent[]
 
   @@map("locators")
 }
 
-model Contract {
+model Rent {
   id         String    @id @default(uuid())
   dt_start   DateTime
   dt_end     DateTime
@@ -86,5 +86,5 @@ model Contract {
   id_tenant    String
   id_apartment String
 
-  @@map("contracts")
+  @@map("rents")
 }
