@@ -4,12 +4,12 @@ import { CreateBuildingService } from "../../services/building/CreateBuildingSer
 class CreateBuildingController{
   async handle(req: Request, res: Response){
 
-    const {numero} = req.body;
+    const { number } = req.body;
 
     const createBuildingService = new CreateBuildingService();
 
     const building = await createBuildingService.execute({
-      numero
+      number
     });
 
     return res.json(building);

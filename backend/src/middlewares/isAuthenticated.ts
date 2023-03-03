@@ -18,7 +18,7 @@ export function isAuthenticated(
 
   const [, token] = authToken.split(" ");
   
-  try {
+  try {    
     const { sub } = verify(
       token,
       ""+process.env.JWT_SECRET

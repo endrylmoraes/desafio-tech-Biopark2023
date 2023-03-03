@@ -1,22 +1,22 @@
 import prismaClient from "../../prisma";
 
 interface BuildingRequest{
-  numero: number;
+  number: number;
 }
 
 class CreateBuildingService{
-  async execute({ numero }: BuildingRequest){
-    if(!numero){
+  async execute({ number }: BuildingRequest){
+    if(!number){
       throw new Error("Número inválido");
     }
     
-    const building = await prismaClient.edificio.create({
+    const building = await prismaClient.building.create({
       data:{
-        numero: numero,
+        number: number,
       },
       select:{
         id: true,
-        numero: true,
+        number: true,
       }
     })
 

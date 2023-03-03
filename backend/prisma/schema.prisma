@@ -7,84 +7,84 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  id            String    @id @default(uuid())
-  nome          String
-  email         String
-  senha         String
-  criado_em     DateTime? @default(now())
-  atualizado_em DateTime? @default(now())
+model User {
+  id         String    @id @default(uuid())
+  name       String
+  email      String
+  password   String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 
-  @@map("usuarios")
+  @@map("users")
 }
 
-model Edificio {
-  id            String    @id @default(uuid())
-  numero        Int
-  criado_em     DateTime? @default(now())
-  atualizado_em DateTime? @default(now())
+model Building {
+  id         String    @id @default(uuid())
+  number     Int
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 
-  apartamentos Apartamento[]
+  apartments Apartment[]
 
-  @@map("edificios")
+  @@map("buildings")
 }
 
-model Apartamento {
-  id            String    @id @default(uuid())
-  andar         Int
-  numero        Int
-  fl_disponivel Boolean
-  valor         String
-  criado_em     DateTime? @default(now())
-  atualizado_em DateTime? @default(now())
+model Apartment {
+  id         String    @id @default(uuid())
+  floor      Int
+  number     Int
+  available  Boolean
+  value      String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 
-  edificio    Edificio @relation(fields: [id_edificio], references: [id])
-  id_edificio String
+  building    Building @relation(fields: [id_building], references: [id])
+  id_building String
 
-  Contrato Contrato[]
+  Contract Contract[]
 
-  @@map("apartamentos")
+  @@map("apartments")
 }
 
-model Inquilino {
-  id            String    @id @default(uuid())
-  nome          String
-  idade         Int
-  email         String
-  cpf           String
-  criado_em     DateTime? @default(now())
-  atualizado_em DateTime? @default(now())
+model Tenant {
+  id         String    @id @default(uuid())
+  name       String
+  age        Int
+  email      String
+  cpf        String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 
-  contratos Contrato[]
+  contracts Contract[]
 
-  @@map("inquilinos")
+  @@map("tenants")
 }
 
-model Locatario {
-  id            String    @id @default(uuid())
-  nome          String
-  criado_em     DateTime? @default(now())
-  atualizado_em DateTime? @default(now())
+model Locator {
+  id         String    @id @default(uuid())
+  name       String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 
-  contratos Contrato[]
+  contracts Contract[]
 
-  @@map("locatarios")
+  @@map("locators")
 }
 
-model Contrato {
-  id            String    @id @default(uuid())
-  data_inicio   DateTime
-  data_fim      DateTime
-  criado_em     DateTime? @default(now())
-  atualizado_em DateTime? @default(now())
+model Contract {
+  id         String    @id @default(uuid())
+  dt_start   DateTime
+  dt_end     DateTime
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
 
-  locatario   Locatario   @relation(fields: [id_locatario], references: [id])
-  inquilino   Inquilino   @relation(fields: [id_inquilino], references: [id])
-  apartamento Apartamento @relation(fields: [id_apartamento], references: [id])
+  locator   Locator   @relation(fields: [id_locator], references: [id])
+  tenant    Tenant    @relation(fields: [id_tenant], references: [id])
+  apartment Apartment @relation(fields: [id_apartment], references: [id])
 
-  id_locatario   String
-  id_inquilino   String
-  id_apartamento String
+  id_locator   String
+  id_tenant    String
+  id_apartment String
 
-  @@map("contratos")
+  @@map("contracts")
 }
