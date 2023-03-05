@@ -1,12 +1,23 @@
-import img from "../../../public/areabiopark.png";
 import Image from "next/image";
+import territorioBiopark from "../../../public/territorio-biopark.png";
+
+import Head from "next/head";
+
+import { Header } from "../../components/Header";
+
 import { canSSRAuth } from "@/utils/canSSRAuth";
 
 export default function Dashboard(){
   return(
     <>
-      <h1>Bem vindo ao painel!</h1>
-      <Image src={img} alt="Território Biopark" />
+      <Head>
+        <title>Biopark - Dashboard</title>
+      </Head>
+      <div>
+        <Header/>
+        <h1>Bem vindo ao painel!</h1>
+        <Image src={territorioBiopark} alt="Território Biopark" />
+      </div>
     </>
   )
 }
