@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Head from "next/head";
+import Link from "next/link";
 
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -22,34 +23,25 @@ interface PageProps{
   buildings: BuildingProps[];
 }
 
-export default function Apartment({ buildings }: PageProps){
+export default function Building({ buildings }: PageProps){
   const [buildingsList, setBuildingsList] = useState(buildings || []);
-
-  async function getBuildings(){
-    const apiClient = setupAPIClient();
-
-    const response = await apiClient.get("/buildings");
-
-    setBuildingsList(response.data);
-  }
 
   return(
     <>
       <Head>
-        <title>Biopark - Território</title>
+        <title>Biopark - Edifícios</title>
       </Head>
       <div>
         <Header/>
         <main className={styles.container}>
           <div className={styles.containerHeader}>
             <h1>Edifícios</h1>
-            <Button>
-              <FiPlus size={24} strokeWidth={3}/>
-            </Button>
+            <Link href="/buildingAdd">
+              <Button>
+                <FiPlus size={24} strokeWidth={3}/>
+              </Button>
+            </Link>
           </div>
-
-
-
 
           <table className={styles.buildingsTable}>
             <thead>
@@ -60,7 +52,7 @@ export default function Apartment({ buildings }: PageProps){
             <tbody>
               {buildingsList.length === 0 && (
                 <tr>
-                  <td colSpan={2}>Nenhum edifício cadastrado...</td>
+                  <td>Nenhum edifício cadastrado...</td>
                 </tr>
               )}
               {buildingsList.map((building) => (
@@ -70,25 +62,17 @@ export default function Apartment({ buildings }: PageProps){
               ))}
             </tbody>
           </table>
-
-
-
         </main>
-
       </div>
     </>
   )
 }
 
-
-
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
 
   const response = await apiClient.get("/buildings");
-
-  //console.log(response.data);
-  
+    
   return{
       props:{
         buildings: response.data

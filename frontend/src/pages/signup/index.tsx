@@ -83,7 +83,7 @@ export default function SignUp() {
         <Image src={logoImg} alt="Logo Biopark" />
 
         <div className={styles.login}>
-            <h1>Criando sua conta</h1>
+          <h1>Criando sua conta</h1>
 
           <form onSubmit={handleSignUp}>
             <Input 
