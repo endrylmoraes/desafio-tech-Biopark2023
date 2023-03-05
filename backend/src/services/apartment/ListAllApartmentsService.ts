@@ -9,7 +9,11 @@ class ListAllApartmentsService{
         number: true,
         available: true,
         value: true,
-        id_building: true
+        building: {
+          select: {
+            number: true
+          }
+        }
       }
     })
 

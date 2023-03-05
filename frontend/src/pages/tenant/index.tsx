@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
+import { ModalTenant } from "@/components/ModalTenant";
 
 import { FiPlus } from "react-icons/fi";
 
@@ -14,7 +15,7 @@ import { setupAPIClient } from "@/services/api";
 
 import { canSSRAuth } from "@/utils/canSSRAuth";
 
-type TenantProps = {
+export type TenantProps = {
   id: string;
   name: string;
   age: number | string;

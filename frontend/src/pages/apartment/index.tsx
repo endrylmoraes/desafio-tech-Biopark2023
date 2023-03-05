@@ -1,7 +1,154 @@
+import { useState } from "react";
+
+import { ModalTenant } from "@/components/ModalTenant";
+
+import Head from "next/head";
+import Link from "next/link";
+
+import { Header } from "@/components/Header";
+import { Button } from "@/components/ui/button";
+
+import { FiPlus, FiHome, FiUser } from "react-icons/fi";
+
 import styles from "./styles.module.scss";
 
-export default function Apartment(){
+import { setupAPIClient } from "@/services/api";
+
+import { canSSRAuth } from "@/utils/canSSRAuth";
+import { TenantProps } from "../tenant";
+
+type ApartmentProps = {
+  id: string;
+  floor: number | string;
+  number: number | string;
+  available: boolean;
+  value: string;
+  building: {
+    number: number;
+  };
+}
+
+interface PageProps{
+  apartments: ApartmentProps[];
+}
+
+export default function Apartment({ apartments }: PageProps){
+  const [apartmentsList, setApartmentsList] = useState(apartments || []);
+
+  // modal
+  const [modalTenantData, setModalTenantData] = useState<TenantProps>();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  async function handleOpenModal(idAP: string){
+    const apiClient = setupAPIClient();
+    
+    // solicitacao pelo ID do ap em aluguel para pegar o locatario
+    // const response = await apiClient.get("/rent/tenant", {
+    //   params: {
+    //     id: idAP
+    //   }
+    // })
+
+    // setModalTenantData(response.data);
+    
+    setModalTenantData({
+      id: "bbb264ab-de1c-42c0-be7c-90505de4f285",
+      name: "Endryl",
+      age: 32,
+      email: "endryl@biopark.com.br",
+      cpf: "12312312312"
+    });
+
+    setModalVisible(true);
+  }
+
+  function handleCloseModal(){
+    setModalVisible(false);
+  }
+
   return(
-    <h1>Apartamentos</h1>
+    <>
+      <Head>
+        <title>Biopark - Apartamentos</title>
+      </Head>
+      <div>
+        <Header/>
+        <main className={styles.container}>
+          <div className={styles.containerHeader}>
+            <h1>Apartamentos</h1>
+            <Link href="/apartmentAdd">
+              <Button>
+                <FiPlus size={24} strokeWidth={3}/>
+              </Button>
+            </Link>
+          </div>
+
+          <table className={styles.apartmentsTable}>
+            <thead>
+              <tr>
+                <th>Edifício</th>
+                <th>Andar</th>
+                <th>Apartamento</th>
+                <th>Valor</th>
+                <th>Locatário / Alugar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {apartmentsList.length === 0 && (
+                <tr>
+                  <td colSpan={5}>Nenhum apartamento cadastrado...</td>
+                </tr>
+              )}
+              {apartmentsList.map((apartment) => (
+                <tr key={apartment.id}>
+                  <td>{apartment.building.number}</td>
+                  <td>{apartment.floor}</td>
+                  <td>{apartment.number}</td>
+                  <td>{apartment.value}</td>
+                  <td className={styles.tdCenter}>
+                    {
+                      apartment.available ? (
+                        <Link href="/rent">
+                          <Button>
+                            <FiHome size={16} strokeWidth={3} />
+                          </Button>
+                        </Link>
+                      ) : (
+                        <Button onClick={()=>{handleOpenModal(apartment.id)}}>
+                          <FiUser size={16} strokeWidth={3} />
+                        </Button>
+                      )
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {
+            modalVisible && (
+              <ModalTenant
+                isOpen={modalVisible}
+                onRequestClose={handleCloseModal}
+                tenantData={modalTenantData}
+              />
+            )
+          }
+
+        </main>
+      </div>
+    </>
   )
 }
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+  const apiClient = setupAPIClient(ctx);
+
+  const response = await apiClient.get("/apartments");
+    
+  return{
+      props:{
+        apartments: response.data
+      }
+  }
+});
