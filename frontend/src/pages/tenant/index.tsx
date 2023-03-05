@@ -58,14 +58,14 @@ export default function Tenant({ tenants }: PageProps){
             <tbody>
               {tenantsList.length === 0 && (
                 <tr>
-                  <td>Nenhum locatário cadastrado...</td>
+                  <td colSpan={4}>Nenhum locatário cadastrado...</td>
                 </tr>
               )}
               {tenantsList.map((tenant) => (
                 <tr key={tenant.id}>
                   <td>{tenant.name}</td>
-                  <td>{tenant.email}</td>
                   <td>{tenant.age}</td>
+                  <td>{tenant.email}</td>
                   <td>{tenant.cpf}</td>
                 </tr>
               ))}

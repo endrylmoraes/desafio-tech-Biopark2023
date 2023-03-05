@@ -2,7 +2,6 @@ import { FormEvent, useState } from "react";
 
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 import Head from "next/head";
 import Router from "next/router";
@@ -14,30 +13,32 @@ import { canSSRAuth } from "@/utils/canSSRAuth";
 import { toast } from "react-toastify";
 
 import styles from "./styles.module.scss";
+import { Input } from "@/components/ui/input";
 
-export default function BuildingAdd(){
-  const [number, setNumber] = useState("");
+export default function LocatorAdd(){
+  const [name, setName] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   async function handleRegister(e: FormEvent){
     e.preventDefault();
 
-    if(number === "" || Number(number) < 0){
-      toast.warn("Número inválido!")
+    if( name === ""){
+      toast.warn("Nome inválido!")
       return;
     }
     try {
       const apiClient = setupAPIClient();
       setLoading(true);
-      await apiClient.post("/building", {
-        number: Number(number)
+      await apiClient.post("/locator", {
+        name: name
       });
       setLoading(false);
-      toast.success("Edifício cadastrado com sucesso!");
-      setNumber("");
-      Router.push("/building");
+      toast.success("Locador cadastrado com sucesso!");
+      
+      Router.push("/locator");
     } catch (err) {
-      toast.error("Este edifício já está cadastrado!");
+      toast.error("Este Locador já está cadastrado!");
       console.log("ERRO AO CADASTRAR ",err);
       setLoading(false);
     }
@@ -47,27 +48,25 @@ export default function BuildingAdd(){
   return(
     <>
       <Head>
-        <title>Biopark - Inserir Edifício</title>
+        <title>Biopark - Inserir Locador</title>
       </Head>
       <div>
         <Header/>
         <main className={styles.container}>
           <div className={styles.containerHeader}>
-            <h1>Inserir Edifício</h1>
+            <h1>Inserir Locador</h1>
 
             <form className={styles.form} onSubmit={handleRegister}>
               <Input 
                 type="text" 
-                placeholder="Digite o número do edifício"
+                placeholder="Digite o nome" 
                 onChange={(e) => {
-                  const inputValue = e.target.value;
-                  if (/^\d*$/.test(inputValue)) { // verifica se a entrada contém apenas números
-                    setNumber(inputValue);
-                  }
+                  setName(e.target.value);
                 }}
-                value={number}
+                value={name}
                 required
               />
+              
               <Button 
                 type="submit"
                 loading={loading}

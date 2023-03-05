@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import { Input } from "@/components/ui/input";
 
-export default function tenantAdd(){
+export default function TenantAdd(){
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
@@ -45,11 +45,6 @@ export default function tenantAdd(){
       });
       setLoading(false);
       toast.success("Locatário cadastrado com sucesso!");
-      
-      // setName("");
-      // setAge("");
-      // setEmail("");
-      // setCpf("");
 
       Router.push("/tenant");
     } catch (err) {
