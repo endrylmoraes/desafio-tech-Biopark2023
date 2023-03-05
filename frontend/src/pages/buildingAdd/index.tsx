@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import Head from "next/head";
 import Router from "next/router";
@@ -55,13 +56,17 @@ export default function buildingAdd(){
             <h1>Inserir Edifício</h1>
 
             <form className={styles.form} onSubmit={handleRegister}>
-              <input 
+              <Input 
                 type="text" 
-                placeholder="Digite o número do edifício" 
+                placeholder="Digite o número do edifício"
                 onChange={(e) => {
-                  setNumber(e.target.value);
+                  const inputValue = e.target.value;
+                  if (/^\d*$/.test(inputValue)) { // verifica se a entrada contém apenas números
+                    setNumber(inputValue);
+                  }
                 }}
                 value={number}
+                required
               />
               <Button 
                 type="submit"
@@ -70,8 +75,6 @@ export default function buildingAdd(){
                 Cadastrar
               </Button>
             </form>
-
-
           </div>
         </main>
       </div>
