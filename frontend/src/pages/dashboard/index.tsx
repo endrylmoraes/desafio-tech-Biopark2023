@@ -1,5 +1,6 @@
 import Image from "next/image";
 import territorioBiopark from "../../../public/territorio-biopark.png";
+import styles from "./styles.module.scss";
 
 import Head from "next/head";
 
@@ -11,12 +12,16 @@ export default function Dashboard(){
   return(
     <>
       <Head>
-        <title>Biopark - Dashboard</title>
+        <title>Biopark - Território</title>
       </Head>
       <div>
         <Header/>
-        <h1>Bem vindo ao painel!</h1>
-        <Image src={territorioBiopark} alt="Território Biopark" />
+        <main className={styles.container}>
+          <div className={styles.containerHeader}>
+            <h1>Território do Biopark</h1>
+            <Image src={territorioBiopark} alt="Território Biopark" />
+          </div>
+        </main>
       </div>
     </>
   )
