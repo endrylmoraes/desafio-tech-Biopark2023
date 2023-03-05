@@ -6,6 +6,7 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 // User
 import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
+import { DetailUserController } from "./controllers/user/DetailUserController";
 
 // Building
 import { CreateBuildingController } from "./controllers/building/CreateBuildingController";
@@ -33,6 +34,7 @@ const router = Router();
 // -- Routes User --
 router.post("/users", new CreateUserController().handle)
 router.post("/session", new AuthUserController().handle)
+router.get("/me", isAuthenticated, new DetailUserController().handle);
 
 // -- Routes Building --
 router.post("/building", isAuthenticated, new CreateBuildingController().handle)

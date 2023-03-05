@@ -2,6 +2,8 @@ import { useContext, FormEvent, useState } from "react";
 
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
+
 import styles from "../../styles/home.module.scss";
 
 import logoImg from "../../public/logo.svg";
@@ -11,9 +13,9 @@ import { Button } from "../components/ui/button";
 
 import { AuthContext } from "../contexts/AuthContext";
 
-import Link from "next/link";
-
 import { toast } from "react-toastify";
+
+import { canSSRGuest } from "../utils/canSSRGuest";
 
 export default function Home() {
   const { signIn } = useContext(AuthContext);
@@ -46,10 +48,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>ProjetoPizzaria - Faça seu login</title>
+        <title>Biopark - Login</title>
       </Head>
       <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Logo Pizzaria" />
+        <Image src={logoImg} alt="Logo Biopark" />
 
         <div className={styles.login}>
           <form onSubmit={handleLogin}>
@@ -84,3 +86,10 @@ export default function Home() {
     </>
   )
 }
+
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props:{}
+  }
+});
