@@ -1,0 +1,48 @@
+.container{
+  margin: 2rem auto;
+  padding: 0 2rem;
+  max-width: 1020px;
+  display: flex;
+  flex-direction: column;
+
+  h1{
+    color: var(--white);
+  }
+}
+
+.containerHeader{
+  display: flex;
+  flex-direction: row;
+
+  button{
+    padding: 6px 7px 4px;
+    border-radius: 50%;
+    margin-left: 1rem;
+  }
+}
+
+
+.tenantsTable {
+  margin-top: 1rem;
+  background-color: #1a202c;
+  color: #fff;
+  border-collapse: separate;
+  border-spacing: 0.25rem;
+}
+
+.tenantsTable th {
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  text-align: left;
+  padding: 5px;
+}
+
+.tenantsTable tr:hover {
+  background-color: #121212; // altere para a cor que deseja usar para clarear a linha
+}
+
+.tenantsTable td {
+  border: 1px solid #4a5568;
+  padding: 5px;
+}
+
