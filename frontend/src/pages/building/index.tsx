@@ -5,6 +5,8 @@ import Head from "next/head";
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
 
+import { FiPlus } from "react-icons/fi";
+
 import styles from "./styles.module.scss";
 
 import { setupAPIClient } from "@/services/api";
@@ -41,33 +43,33 @@ export default function Apartment({ buildings }: PageProps){
         <main className={styles.container}>
           <div className={styles.containerHeader}>
             <h1>Edifícios</h1>
-            <Button>ADD</Button>
+            <Button>
+              <FiPlus size={24} strokeWidth={3}/>
+            </Button>
           </div>
 
 
 
 
-          <article className={styles.listBuildings}>
-          {
-            buildingsList.length === 0 && (
-              <span className={styles.emptyList}>Nenhum edifício cadastrado...</span>
-            )
-          }
-
-          {
-            buildingsList.map( building => (
-              <section key={building.id} className={styles.listItem}>
-                <button>
-                  <div className={styles.tag}></div>
-                  <span>
-                    Edifício {building.number}
-                  </span>
-                </button>
-              </section>
-            ))
-
-          }
-          </article>
+          <table className={styles.buildingsTable}>
+            <thead>
+              <tr>
+                <th>Número</th>
+              </tr>
+            </thead>
+            <tbody>
+              {buildingsList.length === 0 && (
+                <tr>
+                  <td colSpan={2}>Nenhum edifício cadastrado...</td>
+                </tr>
+              )}
+              {buildingsList.map((building) => (
+                <tr key={building.id}>
+                  <td>{building.number}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
 
 

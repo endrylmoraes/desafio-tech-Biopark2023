@@ -12,9 +12,45 @@
 
 .containerHeader{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   button{
-    width: 200px;
+    padding: 6px 7px 4px;
+    border-radius: 50%;
+    margin-left: 1rem;
   }
 }
+
+
+.buildingsTable {
+  margin-top: 1rem;
+  background-color: #1a202c;
+  color: #fff;
+  border-collapse: separate;
+  border-spacing: 0.25rem;
+}
+
+.buildingsTable th {
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  text-align: left;
+  padding: 5px;
+}
+
+// .buildingsTable tr:nth-child(even) {
+//   background-color: blue;
+// }
+
+// .buildingsTable tr:nth-child(odd) {
+//   background-color: red;
+// }
+
+.buildingsTable tr:hover {
+  background-color: #121212; // altere para a cor que deseja usar para clarear a linha
+}
+
+.buildingsTable td {
+  border: 1px solid #4a5568;
+  padding: 5px;
+}
+
