@@ -35,29 +35,19 @@ interface PageProps{
 export default function Apartment({ apartments }: PageProps){
   const [apartmentsList, setApartmentsList] = useState(apartments || []);
 
-  // modal
   const [modalTenantData, setModalTenantData] = useState<TenantProps>();
   const [modalVisible, setModalVisible] = useState(false);
 
   async function handleOpenModal(idAP: string){
     const apiClient = setupAPIClient();
     
-    // solicitacao pelo ID do ap em aluguel para pegar o locatario
-    // const response = await apiClient.get("/rent/tenant", {
-    //   params: {
-    //     id: idAP
-    //   }
-    // })
-
-    // setModalTenantData(response.data);
+    const response = await apiClient.get("/rent/tenant", {
+      params: {
+        id: idAP
+      }
+    })
     
-    setModalTenantData({
-      id: "bbb264ab-de1c-42c0-be7c-90505de4f285",
-      name: "Endryl",
-      age: 32,
-      email: "endryl@biopark.com.br",
-      cpf: "12312312312"
-    });
+    setModalTenantData(response.data.tenant);
 
     setModalVisible(true);
   }

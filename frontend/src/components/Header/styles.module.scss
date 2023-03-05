@@ -28,9 +28,8 @@
       position: relative;
       transition: color 0.7s;
 
-
       & + a {
-          margin-left: 2rem;
+          margin-left: 0.5rem;
       }
 
       &:hover{
