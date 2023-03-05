@@ -1,0 +1,20 @@
+.container{
+  margin: 2rem auto;
+  padding: 0 2rem;
+  max-width: 1020px;
+  display: flex;
+  flex-direction: column;
+
+  h1{
+    color: var(--white);
+  }
+}
+
+.containerHeader{
+  display: flex;
+  flex-direction: column;
+
+  button{
+    width: 200px;
+  }
+}
