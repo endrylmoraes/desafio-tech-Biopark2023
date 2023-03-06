@@ -27,6 +27,7 @@ import { ListByBuildingController } from "./controllers/apartment/ListByBuilding
 
 // Rent
 import { CreateRentController } from "./controllers/rent/CreateRentController";
+import { ListAllRentsController } from "./controllers/rent/ListAllRentsController";
 import { ListTenantPerRentController } from "./controllers/rent/ListTenantPerRentController";
 
 
@@ -56,6 +57,7 @@ router.get("/building/apartments", isAuthenticated, new ListByBuildingController
 
 // -- Routes Rent --
 router.post("/rent", isAuthenticated, new CreateRentController().handle)
+router.get("/rents", isAuthenticated, new ListAllRentsController().handle)
 router.get("/rent/tenant", isAuthenticated, new ListTenantPerRentController().handle)
 
 export { router };

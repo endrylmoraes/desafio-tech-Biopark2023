@@ -36,6 +36,10 @@ export function Header(){
                         Locadores
                     </Link>
 
+                    <Link href="/rent">
+                        Aluguéis
+                    </Link>
+
                     <button onClick={signOut}>
                         <FiLogOut color="#FFF" size={24} />
                     </button>

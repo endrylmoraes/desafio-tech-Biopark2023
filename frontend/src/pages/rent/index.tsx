@@ -17,7 +17,7 @@ import { setupAPIClient } from "@/services/api";
 import { canSSRAuth } from "@/utils/canSSRAuth";
 import { TenantProps } from "../tenant";
 
-type ApartmentProps = {
+type RentProps = {
   id: string;
   floor: number | string;
   number: number | string;
@@ -29,11 +29,11 @@ type ApartmentProps = {
 }
 
 interface PageProps{
-  apartments: ApartmentProps[];
+  rents: RentProps[];
 }
 
-export default function Apartment({ apartments }: PageProps){
-  const [apartmentsList, setApartmentsList] = useState(apartments || []);
+export default function Rent({ rents }: PageProps){
+  const [rentsList, setRentsList] = useState(rents || []);
 
   const [modalTenantData, setModalTenantData] = useState<TenantProps>();
   const [modalVisible, setModalVisible] = useState(false);
@@ -59,45 +59,45 @@ export default function Apartment({ apartments }: PageProps){
   return(
     <>
       <Head>
-        <title>Biopark - Apartamentos</title>
+        <title>Biopark - Aluguéis</title>
       </Head>
       <div>
         <Header/>
         <main className={styles.container}>
           <div className={styles.containerHeader}>
-            <h1>Apartamentos</h1>
-            <Link href="/apartmentAdd">
+            <h1>Aluguéis</h1>
+            <Link href="/rentAdd">
               <Button>
                 <FiPlus size={24} strokeWidth={3}/>
               </Button>
             </Link>
           </div>
 
-          <table className={styles.apartmentsTable}>
+          <table className={styles.rentsTable}>
             <thead>
               <tr>
                 <th>Edifício</th>
                 <th>Andar</th>
-                <th>Apartamento</th>
+                <th>Aluguel</th>
                 <th>Valor</th>
                 <th>Locatário</th>
               </tr>
             </thead>
             <tbody>
-              {apartmentsList.length === 0 && (
+              {rentsList.length === 0 && (
                 <tr>
-                  <td colSpan={5}>Nenhum apartamento cadastrado...</td>
+                  <td colSpan={5}>Nenhum aluguel cadastrado...</td>
                 </tr>
               )}
-              {apartmentsList.map((apartment) => (
-                <tr key={apartment.id}>
-                  <td>{apartment.building.number}</td>
-                  <td>{apartment.floor}</td>
-                  <td>{apartment.number}</td>
-                  <td>{parseFloat(apartment.value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || '0,00'}</td>
+              {rentsList.map((rent) => (
+                <tr key={rent.id}>
+                  <td>{rent.building.number}</td>
+                  <td>{rent.floor}</td>
+                  <td>{rent.number}</td>
+                  <td>{parseFloat(rent.value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || '0,00'}</td>
                   <td>
                     {
-                      apartment.available ? (
+                      rent.available ? (
                           <span>
                             Disponível
                             <Button>
@@ -107,7 +107,7 @@ export default function Apartment({ apartments }: PageProps){
                       ) : (
                         <span>
                           Alugado &nbsp;&nbsp;
-                          <Button onClick={()=>{handleOpenModal(apartment.id)}}>
+                          <Button onClick={()=>{handleOpenModal(rent.id)}}>
                             <FiUser size={16} strokeWidth={3} />
                           </Button>
                         </span>
@@ -138,11 +138,11 @@ export default function Apartment({ apartments }: PageProps){
 export const getServerSideProps = canSSRAuth(async (ctx) => {
   const apiClient = setupAPIClient(ctx);
 
-  const response = await apiClient.get("/apartments");
+  const response = await apiClient.get("/rents");
     
   return{
       props:{
-        apartments: response.data
+        rents: response.data
       }
   }
 });

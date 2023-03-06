@@ -5,9 +5,9 @@ class ListAllApartmentsController{
     async handle(req: Request, res: Response){
         const listAllApartmentsService = new ListAllApartmentsService();
 
-        const products = await listAllApartmentsService.execute();
+        const apartments = await listAllApartmentsService.execute();
 
-        return res.json(products);
+        return res.json(apartments);
     }
 }
 
