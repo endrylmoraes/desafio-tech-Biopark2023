@@ -10,7 +10,7 @@
 Aplicação web de um sistema para gestão dos apartamentos entregues no ecossistema do Biopark.
 <br />
 1. __Back-end__: Desenvolvido em Node.JS com Typescript, utilizando Prisma com banco de dados PostgreSQL.
-2. __Front-end__: Permite listar e cadastrar: edifícios, apartamentos, locatários, locadores e aluguéis. Desenvolvido em React com Next, Typescript e SASS.
+2. __Front-end__: Permite listar e cadastrar: edifícios, apartamentos, locatários, locadores e aluguéis. Além disso, possibilita visualizar a disponibilidade de apartamentos, alugar um apartamento para um locatário e visualizar o locatário de um apartamento. Desenvolvido em React com Next, Typescript e SASS.
 
 ## :hammer_and_wrench: Tecnologias
 * Back-end
