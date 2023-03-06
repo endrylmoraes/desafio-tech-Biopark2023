@@ -16,7 +16,7 @@ export function Header(){
         <header className={styles.headerContainer}>
             <div className={styles.headerContent}>
                 <Link href="/dashboard">
-                    <Image src="/logo.svg" alt="Logo Biopark" width={190} height={60} priority/>
+                    <Image src="/logo-biopark-branco.webp" alt="Logo Biopark" width={190} height={60} priority/>
                 </Link>
 
                 <nav className={styles.menuNav}>

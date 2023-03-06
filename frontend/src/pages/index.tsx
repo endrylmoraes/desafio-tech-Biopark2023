@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import styles from "../../styles/home.module.scss";
 
-import logoImg from "../../public/logo.svg";
+import logoImg from "../../public/logo-biopark-branco.webp";
 
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
