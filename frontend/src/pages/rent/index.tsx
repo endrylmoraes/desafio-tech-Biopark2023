@@ -105,7 +105,7 @@ export default function Rent({ rents }: PageProps){
             <tbody>
               {rentsList.length === 0 && (
                 <tr>
-                  <td colSpan={5}>Nenhum aluguel cadastrado...</td>
+                  <td colSpan={7}>Nenhum aluguel cadastrado...</td>
                 </tr>
               )}
               {rentsList.map((rent) => (
