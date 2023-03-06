@@ -32,9 +32,9 @@ $ git clone https://github.com/endrylmoraes/desafio-tech-Biopark2023.git
 Será usado o Prisma CLI para gerar o banco de dados. Caso ainda não o tenha instalado, você pode instalá-lo usando o comando
 ```bash
 $ npm install -g prisma 
-ou 
-```bash
+#ou 
 $ yarn global add prisma
+```
 
 ### __Back-end__
 Na raíz da pasta backend, crie um arquivo chamado .env (vide exemplo no arquivo .env.example)<br/>
