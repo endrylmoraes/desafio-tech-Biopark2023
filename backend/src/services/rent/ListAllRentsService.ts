@@ -3,11 +3,6 @@ import prismaClient from "../../prisma";
 class ListAllRentsService{
   async execute(){
     const rents = await prismaClient.rent.findMany({
-      where: {
-        dt_end: {
-          gt: new Date()
-        }
-      },
       select:{
         id: true,
         dt_start: true,
