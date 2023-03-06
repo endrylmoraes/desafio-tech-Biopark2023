@@ -94,7 +94,7 @@ export default function Apartment({ apartments }: PageProps){
                   <td>{apartment.building.number}</td>
                   <td>{apartment.floor}</td>
                   <td>{apartment.number}</td>
-                  <td>{apartment.value}</td>
+                  <td>{parseFloat(apartment.value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || '0,00'}</td>
                   <td className={styles.tdCenter}>
                     {
                       apartment.available ? (

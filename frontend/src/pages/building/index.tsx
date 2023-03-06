@@ -14,7 +14,7 @@ import { setupAPIClient } from "@/services/api";
 
 import { canSSRAuth } from "@/utils/canSSRAuth";
 
-type BuildingProps = {
+export type BuildingProps = {
   id: string;
   number: number | string;
 }

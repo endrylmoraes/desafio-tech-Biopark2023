@@ -24,7 +24,6 @@ class ListTenantPerRentService{
         }
       }
     })
-    console.log(rent);
     
     return rent;
   }
