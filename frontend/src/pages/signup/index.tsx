@@ -114,7 +114,7 @@ export default function SignUp() {
               type="submit"
               loading={loading}
             >
-              Acessar
+              Cadastrar
             </Button>
           </form>
           
