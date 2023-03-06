@@ -28,6 +28,13 @@ Baixe o repositório com git clone e entre na pasta do projeto.
 ```bash
 $ git clone https://github.com/endrylmoraes/desafio-tech-Biopark2023.git
 ```
+### __Banco de dados__
+Será usado o Prisma CLI para gerar o banco de dados. Caso ainda não o tenha instalado, você pode instalá-lo usando o comando
+```bash
+$ npm install -g prisma 
+ou 
+```bash
+$ yarn global add prisma
 
 ### __Back-end__
 Na raíz da pasta backend, crie um arquivo chamado .env (vide exemplo no arquivo .env.example)<br/>
@@ -36,6 +43,10 @@ Informe a palavra secreta na variável __JWT_SECRET__<br/>
 ```bash
 # Instale as dependências
 $ yarn
+
+```bash
+# Gere o banco de dados
+$ yarn prisma migrate dev
 
 # Para iniciar a aplicação na porta 3333
 $ yarn dev
