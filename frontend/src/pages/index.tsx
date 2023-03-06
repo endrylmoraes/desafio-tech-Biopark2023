@@ -51,7 +51,7 @@ export default function Home() {
         <title>Biopark - Login</title>
       </Head>
       <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Logo Biopark" />
+        <Image src={logoImg} alt="Logo Biopark" priority/>
 
         <div className={styles.login}>
           <form onSubmit={handleLogin}>

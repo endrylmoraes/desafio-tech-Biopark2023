@@ -3,8 +3,6 @@ import styles from "./styles.module.scss";
 
 import { FiX } from "react-icons/fi";
 
-import { setupAPIClient } from "@/services/api";
-
 import { TenantProps } from "../../pages/tenant";
 import { useState } from "react";
 

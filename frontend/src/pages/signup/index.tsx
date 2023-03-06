@@ -80,7 +80,7 @@ export default function SignUp() {
         <title>Biopark - Cadastro</title>
       </Head>
       <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Logo Biopark" />
+        <Image src={logoImg} alt="Logo Biopark" priority/>
 
         <div className={styles.login}>
           <h1>Criando sua conta</h1>

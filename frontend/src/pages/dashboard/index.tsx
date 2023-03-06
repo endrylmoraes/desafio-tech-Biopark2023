@@ -19,7 +19,7 @@ export default function Dashboard(){
         <main className={styles.container}>
           <div className={styles.containerHeader}>
             <h1>Território do Biopark</h1>
-            <Image src={territorioBiopark} alt="Território Biopark" />
+            <Image src={territorioBiopark} alt="Território Biopark" priority/>
           </div>
         </main>
       </div>
