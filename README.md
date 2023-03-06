@@ -44,13 +44,13 @@ Informe a palavra secreta na variável __JWT_SECRET__<br/>
 # Instale as dependências
 $ yarn
 
-```bash
 # Gere o banco de dados
 $ yarn prisma migrate dev
 
 # Para iniciar a aplicação na porta 3333
 $ yarn dev
 ```
+
 ### __Front-end__
   Na pasta web, informe o IP da aplicação back-end no arquivo _src/services/api.ts_<br/>
 ```bash
