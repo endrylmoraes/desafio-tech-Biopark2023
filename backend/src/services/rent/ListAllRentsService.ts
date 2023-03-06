@@ -16,6 +16,7 @@ class ListAllRentsService{
 
         tenant:{
           select:{
+            id: true,
             name: true,
             age: true,
             email: true,
@@ -27,6 +28,7 @@ class ListAllRentsService{
           select:{
             floor: true,
 			      number: true,
+            value: true,
 
             building:{
               select:{
