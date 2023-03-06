@@ -117,7 +117,7 @@ export default function Rent({ rents }: PageProps){
                   {`${formatDate(rent.dt_start)} até ${formatDate(rent.dt_end)}`}
                   </td>
                   <td>{parseFloat(rent.apartment.value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || '0,00'}</td>
-                  <td>
+                  <td className={styles.tdCenter}>
                     <Button onClick={()=>{handleOpenModal(rent.tenant)}} title={rent.tenant.name}>
                       <FiUser size={16} strokeWidth={3} />
                     </Button>
