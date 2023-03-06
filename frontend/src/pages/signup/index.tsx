@@ -96,7 +96,7 @@ export default function SignUp() {
 
             <Input 
               placeholder="Digite seu email"
-              type="text"
+              type="email"
               name="email"
               value={user.email}
               onChange={handleChange}

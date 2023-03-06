@@ -14,7 +14,20 @@ class ListAllApartmentsService{
             number: true
           }
         }
-      }
+      },
+      orderBy: [
+        {
+          building: {
+            number: "asc",
+          },
+        },
+        {
+          floor: "asc",
+        },
+        {
+          number: "asc",
+        }
+      ]
     })
 
     return apartments;

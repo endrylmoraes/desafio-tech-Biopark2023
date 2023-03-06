@@ -6,6 +6,9 @@ class ListAllLocatorsService{
       select:{
         id: true,
         name: true
+      },
+      orderBy: {
+        name: "asc",
       }
     })
 

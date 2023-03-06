@@ -9,7 +9,18 @@ class ListAllTenantsService{
         age: true,
         email: true,
         cpf: true,
-      }
+      },
+      orderBy: [
+        {
+          name: "asc",
+        },
+        {
+          age: "asc",
+        },
+        {
+          email: "asc",
+        }
+      ]
     })
 
     return tenants;

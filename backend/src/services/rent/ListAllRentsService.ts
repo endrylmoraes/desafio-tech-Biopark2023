@@ -37,7 +37,26 @@ class ListAllRentsService{
             }
           }
         }
-      }
+      },
+      orderBy: [
+        {
+          apartment:{
+            building: {
+              number: "asc",
+            },
+          }
+        },
+        {
+          apartment: {
+            floor: "asc",
+          }
+        },
+        {
+          apartment:{
+            number: "asc",
+          }
+        }
+      ]
     })
 
     return rents;

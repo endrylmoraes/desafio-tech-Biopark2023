@@ -18,7 +18,15 @@ class ListByBuildingService{
             available: true,
             value: true,
             id_building: true
-          }
+          },
+          orderBy: [
+            {
+              floor: "asc",
+            },
+            {
+              number: "asc",
+            }
+          ]
         })
 
         return findByBuilding;

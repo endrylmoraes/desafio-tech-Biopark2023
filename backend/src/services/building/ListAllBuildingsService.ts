@@ -6,6 +6,9 @@ class ListAllBuildingsService{
       select:{
         id: true,
         number: true,
+      },
+      orderBy: {
+        number: "asc",
       }
     })
 
