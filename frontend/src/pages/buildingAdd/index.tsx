@@ -56,6 +56,7 @@ export default function BuildingAdd(){
             <h1>Inserir Edifício</h1>
 
             <form className={styles.form} onSubmit={handleRegister}>
+              <label>Número</label>
               <Input 
                 type="text" 
                 placeholder="Digite o número do edifício"

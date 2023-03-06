@@ -17,6 +17,11 @@
   flex-direction: column;
   margin: 1rem 0;
 
+  label{
+    color: var(--white);
+    margin: 3px;
+  }
+
   button{
     height: 40px;
     border: 0;

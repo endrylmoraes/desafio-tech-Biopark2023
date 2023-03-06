@@ -67,6 +67,8 @@ export default function TenantAdd(){
             <h1>Inserir Locatário</h1>
 
             <form className={styles.form} onSubmit={handleRegister}>
+              
+              <label>Nome</label>
               <Input 
                 type="text" 
                 placeholder="Digite o nome" 
@@ -77,6 +79,7 @@ export default function TenantAdd(){
                 required
               />
 
+              <label>Idade</label>
               <Input 
                 type="text" 
                 placeholder="Digite a idade"
@@ -90,6 +93,7 @@ export default function TenantAdd(){
                 required
               />
 
+              <label>Email</label>
               <Input 
                 type="email" 
                 placeholder="Digite o email" 
@@ -100,6 +104,7 @@ export default function TenantAdd(){
                 required
               />
               
+              <label>CPF</label>
               <Input 
                 type="text" 
                 placeholder="Digite o CPF"

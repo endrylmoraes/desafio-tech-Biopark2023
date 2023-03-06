@@ -57,6 +57,7 @@ export default function LocatorAdd(){
             <h1>Inserir Locador</h1>
 
             <form className={styles.form} onSubmit={handleRegister}>
+              <label>Nome</label>
               <Input 
                 type="text" 
                 placeholder="Digite o nome" 

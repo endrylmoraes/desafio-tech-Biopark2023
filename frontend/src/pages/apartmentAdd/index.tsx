@@ -81,19 +81,21 @@ export default function ApartmentAdd({ buildings }: PageProps){
             <h1>Inserir Apartamento</h1>
 
             <form className={styles.form} onSubmit={handleRegister}>
-
+              
+              <label>Edifício</label>
               <select value={buildingSelected} onChange={handleChangeBuilding}>
                 {
                   buildingsList.map((building, index)=>{
                     return(
                       <option key={building.id} value={index}>
-                        Edifício {building.number}
+                        {building.number}
                       </option>
                     )
                   })
                 }
               </select>
 
+              <label>Andar</label>
               <Input 
                 type="text" 
                 placeholder="Digite o andar"
@@ -107,6 +109,7 @@ export default function ApartmentAdd({ buildings }: PageProps){
                 required
               />
 
+              <label>Número</label>
               <Input 
                 type="text" 
                 placeholder="Digite o número"
@@ -120,6 +123,7 @@ export default function ApartmentAdd({ buildings }: PageProps){
                 required
               />
 
+              <label>Valor</label>
               <Input 
                 type="text" 
                 placeholder="Digite o valor"
