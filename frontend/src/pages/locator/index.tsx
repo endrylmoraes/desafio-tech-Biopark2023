@@ -14,7 +14,7 @@ import { setupAPIClient } from "@/services/api";
 
 import { canSSRAuth } from "@/utils/canSSRAuth";
 
-type LocatorProps = {
+export type LocatorProps = {
   id: string;
   name: string;
   age: number | string;

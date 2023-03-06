@@ -1,14 +1,15 @@
 import prismaClient from "../../prisma"
 
-interface ProductRequest{
-    id_building: string;
+interface ListByBuildingRequest{
+    id: string;
 }
 
 class ListByBuildingService{
-    async execute({ id_building }: ProductRequest){
+    async execute({ id }: ListByBuildingRequest){
         const findByBuilding = await prismaClient.apartment.findMany({
           where:{
-            id_building: id_building
+            id_building: id,
+            available: true
           },  
           select:{
             id: true,

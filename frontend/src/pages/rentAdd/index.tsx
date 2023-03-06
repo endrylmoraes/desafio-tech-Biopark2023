@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 
 import { Header } from "@/components/Header";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import Head from "next/head";
 import Router from "next/router";
 
 import { setupAPIClient } from "@/services/api";
+import { api } from "@/services/apiClient";
 
 import { canSSRAuth } from "@/utils/canSSRAuth";
 
@@ -15,26 +16,21 @@ import { toast } from "react-toastify";
 import styles from "./styles.module.scss";
 import { Input } from "@/components/ui/input";
 
-
 import { BuildingProps } from "../building";
 import { TenantProps } from "../tenant";
 import { ApartmentProps } from "../apartment";
-
+import { LocatorProps } from "../locator";
 
 interface PageProps{
   buildings: BuildingProps[];
   apartments: ApartmentProps[];
   tenants: TenantProps[];
+  locators: LocatorProps[];
 }
 
-export default function ApartmentAdd({ buildings, apartments, tenants }: PageProps){
-  console.log("🚀 ~ file: index.tsx:31 ~ ApartmentAdd ~ tenants:", tenants)
-  console.log("🚀 ~ file: index.tsx:31 ~ ApartmentAdd ~ apartments:", apartments)
-  console.log("🚀 ~ file: index.tsx:31 ~ ApartmentAdd ~ buildings:", buildings)
-  
-  
-  const [dtStart, setDtStart] = useState(new Date());
-  const [dtEnd, setDtEnd] = useState(new Date());
+export default function ApartmentAdd({ buildings, apartments, tenants, locators }: PageProps){
+  const [dtStart, setDtStart] = useState(new Date().toISOString().substr(0, 10));
+  const [dtEnd, setDtEnd] = useState(new Date().toISOString().substr(0, 10));
 
   const [buildingsList, setBuildingsList] = useState(buildings ||  []);
   const [buildingSelected, setBuildingSelected] = useState(0);
@@ -44,6 +40,9 @@ export default function ApartmentAdd({ buildings, apartments, tenants }: PagePro
 
   const [tenantsList, setTenantsList] = useState(tenants ||  []);
   const [tenantSelected, setTenantSelected] = useState(0);
+
+  const [locatorsList, setLocatorsList] = useState(locators ||  []);
+  const [locatorSelected, setLocatorSelected] = useState(0);
 
   const [loading, setLoading] = useState(false);
 
@@ -59,37 +58,61 @@ export default function ApartmentAdd({ buildings, apartments, tenants }: PagePro
     setApartmentSelected(e.target.value);
   }
 
+  function handleChangeLocator(e){
+    setLocatorSelected(e.target.value);
+  }
+
+  useEffect(() => {
+    //atualizar apartamentos de acordo com o edificio...
+    async function loadApartments(){
+      const id = buildingsList[buildingSelected].id;
+      
+      const response = await api.get("/building/apartments",{
+          params:{
+            id: id
+          }
+      });
+      setApartmentsList(response.data);
+      setApartmentSelected(0);
+    }
+      
+    loadApartments();
+
+  },[buildingSelected]);
 
   async function handleRegister(e: FormEvent){
     e.preventDefault();
 
-    // if( floor === "" || Number(floor) < 0 ||
-    //     number === "" || Number(number) < 0 ||
-    //     value === "" || 
-    //     buildingsList.length === 0
-    //   ){
-    //   toast.warn("Dados inválidos!")
-    //   return;
-    // }
-    // try {
-    //   const apiClient = setupAPIClient();
-    //   setLoading(true);
-      
-    //   await apiClient.post("/apartment", {
-    //     floor: Number(floor),
-    //     number: Number(number),
-    //     value: value,
-    //     id_building: buildingsList[buildingSelected].id
-    //   });
-    //   setLoading(false);
-    //   toast.success("Apartamento cadastrado com sucesso!");
+    if( buildingsList.length === 0 ||
+        apartmentsList.length === 0 ||
+        tenantsList.length === 0 ||
+        dtStart > dtEnd
+      ){
+      toast.warn("Dados inválidos!")
+      return;
+    }
 
-    //   Router.push("/apartment");
-    // } catch (err) {
-    //   toast.error("Este apartamento já está cadastrado!");
-    //   console.log("ERRO AO CADASTRAR ",err);
-    //   setLoading(false);
-    // }
+    try {
+      const apiClient = setupAPIClient();
+      setLoading(true);
+      
+      await apiClient.post("/rent", {
+        dt_start: dtStart,
+        dt_end: dtEnd,
+        id_locator: locatorsList[locatorSelected].id,
+        id_tenant: tenantsList[tenantSelected].id,
+        id_apartment: apartmentsList[apartmentSelected].id
+      });
+
+      setLoading(false);
+      toast.success("Aluguel registrado com sucesso!");
+
+      Router.push("/rent");
+    } catch (err) {
+      toast.error("Erro ao registrar aluguel!");
+      console.log("ERRO AO REGISTRAR ALUGUEL ",err);
+      setLoading(false);
+    }
     
   }
 
@@ -106,42 +129,104 @@ export default function ApartmentAdd({ buildings, apartments, tenants }: PagePro
 
             <form className={styles.form} onSubmit={handleRegister}>
 
+              <label>Edifícios</label>
               <select value={buildingSelected} onChange={handleChangeBuilding}>
                 {
-                  buildingsList.map((building, index)=>{
-                    return(
-                      <option key={building.id} value={index}>
-                        Edifício {building.number}
-                      </option>
-                    )
-                  })
+                  buildingsList.length ? (
+                    buildingsList.map((building, index)=>{
+                      return(
+                        <option key={building.id} value={index}>
+                          Edifício {building.number}
+                        </option>
+                      )
+                    })
+                  ) : (
+                    <option value={0}>
+                      Nenhum edifício cadastrado...
+                    </option>
+                  )
                 }
               </select>
 
+              <label>Apartamentos</label>
               <select value={apartmentSelected} onChange={handleChangeApartment}>
                 {
-                  apartmentsList.map((apartment, index)=>{
-                    return(
-                      <option key={apartment.id} value={index}>
-                        Apartamento {apartment.floor}º andar, Nº {apartment.number}
-                      </option>
-                    )
-                  })
+                  apartmentsList.length ? (
+                    apartmentsList.map((apartment, index)=>{
+                      return(
+                        <option key={apartment.id} value={index}>
+                          Apartamento {apartment.floor}º andar, Nº {apartment.number}
+                        </option>
+                      )
+                    })
+                  ) : (
+                    <option value={0}>
+                      Nenhum apartamento disponível...
+                    </option>
+                  )
                 }
               </select>
 
+              <label>Locatários</label>
               <select value={tenantSelected} onChange={handleChangeTenant}>
                 {
-                  tenantsList.map((tenant, index)=>{
-                    return(
-                      <option key={tenant.id} value={index}>
-                        {tenant.name} - {tenant.cpf}
-                      </option>
-                    )
-                  })
+                  tenantsList.length ? (
+                    tenantsList.map((tenant, index)=>{
+                      return(
+                        <option key={tenant.id} value={index}>
+                          {tenant.name} - CPF: {tenant.cpf}
+                        </option>
+                      )
+                    })
+                  ) : (
+                    <option value={0}>
+                      Nenhum locatário cadastrado...
+                    </option>
+                  )
                 }
               </select>
-              
+
+              <label>Locadores</label>
+              <select value={locatorSelected} onChange={handleChangeLocator}>
+                {
+                  locatorsList.length ? (
+                    locatorsList.map((locator, index)=>{
+                      return(
+                        <option key={locator.id} value={index}>
+                          {locator.name}
+                        </option>
+                      )
+                    })
+                  ) : (
+                    <option value={0}>
+                      Nenhum locador cadastrado...
+                    </option>
+                  )
+                }
+              </select>
+
+              <label>Data de Início</label>
+              <Input 
+                type="date" 
+                placeholder="Data de início"
+                onChange={(e) => {
+                  setDtStart(e.target.value)
+                }}
+                value={dtStart}
+                required
+              />
+
+              <label>Data de Término</label>
+              <Input 
+                type="date" 
+                placeholder="Data de fim"
+                onChange={(e) => {
+                  setDtEnd(e.target.value)
+                }}
+                value={dtEnd}
+                required
+              />
+
               <Button 
                 type="submit"
                 loading={loading}
@@ -174,11 +259,14 @@ export const getServerSideProps = canSSRAuth(async (ctx) => {
 
   const responseTenants = await apiClient.get("/tenants");
 
+  const responseLocators = await apiClient.get("/locators");
+
   return{
     props:{
       buildings: responseBuildings.data,
       apartments: responseApartments.data,
-      tenants: responseTenants.data
+      tenants: responseTenants.data,
+      locators: responseLocators.data
     }
   }
 });

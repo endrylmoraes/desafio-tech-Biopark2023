@@ -3,12 +3,12 @@ import { ListByBuildingService } from "../../services/apartment/ListByBuildingSe
 
 class ListByBuildingController{
     async handle(req: Request, res: Response){
-        const id_building = req.query.id_building as string; //este vem por query params
+        const id = req.query.id as string; //este vem por query params
 
         const listByBuildingService = new ListByBuildingService();
 
         const products = await listByBuildingService.execute({
-            id_building
+            id
         });
 
         return res.json(products);
