@@ -17,7 +17,7 @@ import { setupAPIClient } from "@/services/api";
 import { canSSRAuth } from "@/utils/canSSRAuth";
 import { TenantProps } from "../tenant";
 
-type ApartmentProps = {
+export type ApartmentProps = {
   id: string;
   floor: number | string;
   number: number | string;
